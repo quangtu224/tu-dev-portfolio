@@ -1,0 +1,95 @@
+:root,
+[data-bs-theme="dark"] {
+  /* Color palette */
+  --bg: #0a0e17;
+  --surface: #111827;
+  --surface-2: #1a2335;
+  --border: #1f2a3d;
+  --text-h: #f0f6ff;
+  --text: #c9d4e5;
+  --text-muted: #7b8aa3;
+  --primary: #00e5ff;
+  --primary-hover: #66f0ff;
+  --secondary: #a855f7;
+  --accent: #ff2e97;
+  --terminal: #00ff9c;
+  --gradient: linear-gradient(135deg, #00e5ff, #a855f7);
+  --glow: 0 0 20px rgba(0, 229, 255, 0.35);
+
+  /* Font */
+  --font-body: "Inter", sans-serif;
+  --font-heading: "Space Grotesk", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+
+  /* Override Bootstrap variables so its classes use this palette */
+  --bs-body-bg: var(--bg);
+  --bs-body-color: var(--text);
+  --bs-body-font-family: var(--font-body);
+  --bs-heading-color: var(--text-h);
+  --bs-secondary-color: var(--text-muted);
+  --bs-border-color: var(--border);
+  --bs-emphasis-color: var(--text-h);
+  --bs-emphasis-color-rgb: 240, 246, 255;
+  /* Bootstrap colors links using RGB-format variables */
+  --bs-link-color: var(--primary);
+  --bs-link-color-rgb: 0, 229, 255;
+  --bs-link-hover-color: var(--secondary);
+  --bs-link-hover-color-rgb: 168, 85, 247;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-heading);
+}
+
+code,
+kbd,
+pre {
+  font-family: var(--font-mono);
+  color: var(--terminal);
+}
+
+::selection {
+  background: var(--primary);
+  color: var(--bg);
+}
+
+/* ===== Shared utilities ===== */
+
+/* Primary button: cyan background, dark text, glows on hover */
+.btn-neon {
+  --bs-btn-font-weight: 600;
+  --bs-btn-color: var(--bg);
+  --bs-btn-bg: var(--primary);
+  --bs-btn-border-color: var(--primary);
+  --bs-btn-hover-color: var(--bg);
+  --bs-btn-hover-bg: var(--primary-hover);
+  --bs-btn-hover-border-color: var(--primary-hover);
+  --bs-btn-active-color: var(--bg);
+  --bs-btn-active-bg: var(--primary);
+  --bs-btn-active-border-color: var(--primary);
+  --bs-btn-focus-shadow-rgb: 0, 229, 255;
+  transition:
+    box-shadow 0.2s,
+    background-color 0.2s;
+}
+.btn-neon:hover {
+  box-shadow: var(--glow);
+}
+
+/* Cyan → purple gradient text */
+.gradient-text {
+  background: var(--gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Code-style text */
+.font-mono {
+  font-family: var(--font-mono);
+}
