@@ -1,0 +1,109 @@
+/* Shared vertical timeline (Education, Experience) */
+
+/* ===== Vertical line on the left ===== */
+.timeline {
+  position: relative;
+  padding-left: 2rem;
+}
+.timeline::before {
+  content: "";
+  position: absolute;
+  top: 0.4rem;
+  bottom: 0;
+  left: calc(0.5rem - 1px);
+  width: 2px;
+  background: linear-gradient(
+    to bottom,
+    var(--primary),
+    var(--secondary),
+    transparent
+  );
+  /* "Draw" the line from top to bottom */
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 1s ease-out;
+}
+.timeline.is-visible::before {
+  transform: scaleY(1);
+}
+
+/* ===== Items: fade in one after another ===== */
+.timeline-item {
+  position: relative;
+  opacity: 0;
+  transform: translateX(-12px);
+  transition:
+    opacity 0.5s ease,
+    transform 0.5s ease;
+  transition-delay: var(--delay);
+}
+.timeline.is-visible .timeline-item {
+  opacity: 1;
+  transform: none;
+}
+.timeline-item + .timeline-item {
+  margin-top: 2rem;
+}
+
+/* Dot: centered exactly on the line */
+.timeline-dot {
+  position: absolute;
+  top: 0.35rem;
+  left: -2rem;
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+  background: var(--bg);
+  border: 2px solid var(--secondary);
+  transition:
+    background-color 0.2s,
+    box-shadow 0.2s,
+    transform 0.2s;
+}
+.timeline-dot--current {
+  border-color: var(--primary);
+  animation: timeline-pulse 2s ease-out infinite;
+}
+
+@keyframes timeline-pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(0, 229, 255, 0.6);
+  }
+  100% {
+    box-shadow: 0 0 0 10px rgba(0, 229, 255, 0);
+  }
+}
+
+/* ===== Content ===== */
+.timeline-period {
+  color: var(--primary);
+  font-size: 0.95rem;
+}
+
+.timeline-title {
+  color: var(--text-h);
+  font-size: 1.05rem;
+  transition: color 0.2s;
+}
+
+/* Hovering a row: dot lights up, title changes color */
+.timeline-item:hover .timeline-dot {
+  background: var(--primary);
+  transform: scale(1.2);
+  box-shadow: var(--glow);
+}
+.timeline-item:hover .timeline-title {
+  color: var(--primary);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .timeline::before,
+  .timeline-item {
+    transform: none;
+    opacity: 1;
+    transition: none;
+  }
+  .timeline-dot--current {
+    animation: none;
+  }
+}

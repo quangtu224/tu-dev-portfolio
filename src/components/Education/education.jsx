@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState } from "react";
+import { useInView } from "../../hooks/useInView.js";
+import "../../styles/timeline.css";
 import "./education.css";
 
 // Education data: add or edit entries here and the UI updates automatically
@@ -33,24 +34,7 @@ const EDUCATION = [
 ];
 
 function Education() {
-  const timelineRef = useRef(null);
-  const [visible, setVisible] = useState(false);
-
-  // Run the animation only once, when the timeline scrolls into view
-  useEffect(() => {
-    const el = timelineRef.current;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setVisible(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.2 },
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
+  const [timelineRef, visible] = useInView();
 
   return (
     <section id="education" className="py-5 border-bottom">
@@ -59,22 +43,22 @@ function Education() {
 
         <ol
           ref={timelineRef}
-          className={`edu-timeline list-unstyled mb-0 ${visible ? "is-visible" : ""}`}
+          className={`timeline list-unstyled mb-0 ${visible ? "is-visible" : ""}`}
         >
           {EDUCATION.map((item, index) => (
             <li
               key={item.school}
-              className="edu-item"
+              className="timeline-item"
               style={{ "--delay": `${index * 0.2 + 0.2}s` }}
             >
-              <span className={`edu-dot ${item.current ? "edu-dot--current" : ""}`} />
+              <span className={`timeline-dot ${item.current ? "timeline-dot--current" : ""}`} />
               <div className="row">
                 <div className="col-md-4 col-lg-3 mb-2 mb-md-0">
-                  <p className="edu-period font-mono mb-0">{item.period}</p>
-                  <p className="edu-location small text-secondary mb-0">{item.location}</p>
+                  <p className="timeline-period font-mono mb-0">{item.period}</p>
+                  <p className="small text-secondary mb-0">{item.location}</p>
                 </div>
                 <div className="col-md-8 col-lg-9">
-                  <h3 className="edu-school h6 fw-bold mb-1">{item.school}</h3>
+                  <h3 className="timeline-title h6 fw-bold mb-1">{item.school}</h3>
                   <p className="edu-degree mb-2">
                     {item.degree}
                     {item.note && (
