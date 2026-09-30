@@ -1,0 +1,54 @@
+/* Square icon chip */
+.tech-icon {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 0.6rem;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-size: 1.15rem;
+  cursor: default;
+  transition:
+    color 0.2s,
+    border-color 0.2s,
+    box-shadow 0.2s,
+    transform 0.2s;
+}
+.tech-icon:hover,
+.tech-icon:focus-visible {
+  color: var(--primary);
+  border-color: var(--primary);
+  box-shadow: var(--glow);
+  transform: translateY(-3px);
+  outline: none;
+}
+
+/* Tooltip with the technology name */
+.tech-icon::after {
+  content: attr(data-label);
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translate(-50%, 4px);
+  padding: 0.25rem 0.55rem;
+  border-radius: 0.4rem;
+  background: var(--text-h);
+  color: var(--bg);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transition:
+    opacity 0.15s,
+    transform 0.15s;
+  z-index: 10;
+}
+.tech-icon:hover::after,
+.tech-icon:focus-visible::after {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
