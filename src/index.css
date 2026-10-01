@@ -37,6 +37,12 @@
   --bs-link-hover-color-rgb: 168, 85, 247;
 }
 
+/* Smooth scroll for menu links; offset so the sticky navbar doesn't cover section titles */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px;
+}
+
 h1,
 h2,
 h3,

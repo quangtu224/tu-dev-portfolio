@@ -1,6 +1,37 @@
+import { useEffect, useState } from "react";
 import logoImg from "../../assets/logo.png";
 import "./navBar.css";
+import NavItem from "./navItem.jsx";
+
+const navItems = [
+  { id: "about", label: "About" },
+  { id: "education", label: "Education" },
+  { id: "experience", label: "Experience" },
+  { id: "skills", label: "Skills" },
+];
+
 function NavBar() {
+  const [activeId, setActiveId] = useState("about");
+
+  // Highlight the menu item whose section is crossing the middle of the screen
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) setActiveId(entry.target.id);
+        });
+      },
+      { rootMargin: "-50% 0px -50% 0px" },
+    );
+
+    navItems.forEach((item) => {
+      const section = document.getElementById(item.id);
+      if (section) observer.observe(section);
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <>
       <nav className="navbar navbar-expand-lg border-bottom small sticky-top">
@@ -24,31 +55,14 @@ function NavBar() {
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             {/* Menu Item*/}
             <ul className="navbar-nav me-auto mb-2 mb-lg-0 ms-auto">
-              <li className="nav-item">
-                <a className="nav-link active" aria-current="page" href="#">
-                  Home
-                </a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="#">
-                  About
-                </a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="#">
-                  Education
-                </a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="#">
-                  Experience
-                </a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="#">
-                  Skills
-                </a>
-              </li>
+              {navItems.map((item) => (
+                <NavItem
+                  key={item.id}
+                  id={item.id}
+                  label={item.label}
+                  isActive={activeId === item.id}
+                />
+              ))}
             </ul>
             <a href="#" className="btn btn-neon rounded-pill mb-3 mb-lg-0">
               Contact Me

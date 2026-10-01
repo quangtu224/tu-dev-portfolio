@@ -1,0 +1,114 @@
+/* Timeline layout lives in src/styles/timeline.css */
+
+.exp-subheading {
+  color: var(--terminal);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+/* ===== Work ===== */
+.exp-type {
+  background: transparent;
+  color: var(--secondary);
+  border: 1px solid var(--secondary);
+  font-weight: 500;
+  vertical-align: middle;
+}
+
+.exp-company {
+  color: var(--text);
+  font-weight: 500;
+}
+
+/* Bullet list with a cyan arrow marker */
+.exp-highlights {
+  list-style: none;
+  padding-left: 0;
+}
+.exp-highlights li {
+  position: relative;
+  padding-left: 1.25rem;
+  margin-bottom: 0.4rem;
+}
+.exp-highlights li::before {
+  content: "▹";
+  position: absolute;
+  left: 0;
+  color: var(--primary);
+}
+
+/* ===== Project cards ===== */
+.exp-project {
+  --bs-card-bg: var(--surface);
+  --bs-card-border-color: var(--border);
+  --bs-card-color: var(--text);
+  position: relative;
+  overflow: hidden;
+  transition:
+    border-color 0.25s,
+    transform 0.25s,
+    box-shadow 0.25s;
+}
+/* Gradient bar that slides in on top of the card on hover */
+.exp-project::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--gradient);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.35s ease;
+}
+.exp-project:hover {
+  border-color: var(--primary);
+  transform: translateY(-4px);
+  box-shadow: var(--glow);
+}
+.exp-project:hover::before {
+  transform: scaleX(1);
+}
+
+.exp-project-type {
+  color: var(--primary);
+}
+
+.exp-private {
+  cursor: help;
+}
+
+.exp-project-title {
+  color: var(--text-h);
+  transition: color 0.2s;
+}
+.exp-project:hover .exp-project-title {
+  color: var(--primary);
+}
+
+/* Cards fade up one after another when the grid scrolls into view */
+.exp-grid-item {
+  opacity: 0;
+  transform: translateY(16px);
+  transition:
+    opacity 0.5s ease,
+    transform 0.5s ease;
+  transition-delay: var(--delay);
+}
+.exp-grid.is-visible .exp-grid-item {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .exp-project,
+  .exp-project::before,
+  .exp-grid-item {
+    transition: none;
+  }
+  .exp-grid-item {
+    opacity: 1;
+    transform: none;
+  }
+}

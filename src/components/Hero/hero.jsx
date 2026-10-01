@@ -2,7 +2,7 @@ import "./hero.css";
 import heroImg from "../../assets/hero.jpg";
 function Hero() {
   return (
-    <header class="main-header py-5 border-bottom">
+    <header id="about" class="main-header py-5 border-bottom">
       <div class="container">
         <div class="row align-items-center gx-md-5">
           <div class="col-md-6">
