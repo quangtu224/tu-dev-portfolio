@@ -21,14 +21,19 @@ function NavItem({ id, label, isActive }) {
 function NavBar({ onContactClick }) {
   const [activeId, setActiveId] = useState("about");
 
-  // Highlight the menu item whose section has passed the middle of the screen
+  // Highlight the menu item whose section has reached the line just below the navbar.
+  // Must be a bit larger than `scroll-padding-top` in index.css (80px), so a section
+  // scrolled into place by its menu link counts as active.
   useEffect(() => {
+    const ACTIVE_LINE = 100;
+
+
     const updateActive = () => {
       const atBottom =
         window.innerHeight + window.scrollY >=
         document.documentElement.scrollHeight - 2;
 
-      // The last section may be too short to ever reach the middle line
+      // The last section may be too short to ever reach the active line
       if (atBottom) {
         setActiveId(navItems[navItems.length - 1].id);
         return;
@@ -37,7 +42,7 @@ function NavBar({ onContactClick }) {
       let current = navItems[0].id;
       navItems.forEach((item) => {
         const section = document.getElementById(item.id);
-        if (section && section.getBoundingClientRect().top <= window.innerHeight / 2) {
+        if (section && section.getBoundingClientRect().top <= ACTIVE_LINE) {
           current = item.id;
         }
       });
